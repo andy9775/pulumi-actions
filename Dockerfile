@@ -15,7 +15,7 @@ RUN apt-get update -y
 RUN apt-get install -y ca-certificates curl software-properties-common gnupg jq git
 
 # Install the Pulumi SDK, including the CLI and language runtimes.
-RUN curl -fsSL https://get.pulumi.com/ | bash -s -- --version 0.16.9 && \
+RUN curl -fsSL https://get.pulumi.com/ | bash -s -- --version 0.16.16 && \
     mv ~/.pulumi/bin/* /usr/bin
 
 # Install the necessary runtimes to support Pulumi languages.
@@ -40,19 +40,19 @@ RUN curl -Lso /usr/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.ama
 RUN pip install awscli --upgrade
 #     - Azure
 RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" | \
-        tee /etc/apt/sources.list.d/azure-cli.list && \
+    tee /etc/apt/sources.list.d/azure-cli.list && \
     curl -L https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     apt-get update -y && apt-get install -y azure-cli
 
 #     - Google Cloud
 RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | \
-        tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     apt-get update -y && apt-get install -y google-cloud-sdk
 #     - Kubernetes
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - && \
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | \
-        tee -a /etc/apt/sources.list.d/kubernetes.list && \
+    tee -a /etc/apt/sources.list.d/kubernetes.list && \
     apt-get update -y && apt-get install -y kubectl
 
 # Copy the entrypoint script.
