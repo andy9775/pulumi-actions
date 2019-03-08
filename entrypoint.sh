@@ -83,7 +83,7 @@ if [ -e package.json ] && [ ! -d node_modules ]; then
 fi
 
 # Now just pass along all arguments to the Pulumi CLI.
-OUTPUT=$(sh -c "pulumi --non-interactive $*" 2>&1)
+OUTPUT=$(sh -c "pulumi -v --non-interactive $*" 2>&1)
 EXIT_CODE=$?
 
 echo "#### :tropical_drink: \`pulumi ${@:2}\`"
